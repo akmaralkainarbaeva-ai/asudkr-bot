@@ -1,0 +1,50 @@
+АСУ ДКР бот запущен. Ожидаю сообщения…
+АСУ ДКР бот запущен. Ожидаю сообщения…
+РђРЎРЈ Р”РљР  Р±РѕС‚ Р·Р°РїСѓС‰РµРЅ. РћР¶РёРґР°СЋ СЃРѕРѕР±С‰РµРЅРёСЏвЂ¦
+АСУ ДКР бот запущен. Ожидаю сообщения…
+[fetch] page1 keys=['total', 'success', 'rows'] total_field=200
+[fetch] page 1: chunk=20 всего_собрано=20 total=200
+[fetch] page 2: повтор уже виденных id, стоп
+[fetch] собрано_строк=20 не_распознана_дата=20 подходит_под_период=0 период=2026-09-23..2026-09-23 пример_дат=[None, None, None]
+[fetch] page1 keys=['total', 'success', 'rows'] total_field=200
+[fetch] page 1: chunk=20 всего_собрано=20 total=200
+[fetch] page 2: повтор уже виденных id, стоп
+[fetch] собрано_строк=20 не_распознана_дата=20 подходит_под_период=0 период=2026-08-31..2026-08-31 пример_дат=[None, None, None]
+АСУ ДКР бот запущен. Ожидаю сообщения…
+[fetch] page1 top_keys=['total', 'success', 'rows'] total=200 chunk=20
+[fetch] пример_строки_ключи=['id', 'invoiceNum', 'planNr', 'sender', 'stationDest', 'gruzName', 'shipKind', 'typeTraff', 'receiver', 'staSend', 'createDate', 'firstVag', 'lastVag', 'isReturned', 'specialEqipment', 'staSendCode', 'stationDestCode']
+[fetch] пример_строки_данные={'id': 51543350, 'invoiceNum': '20741654', 'planNr': '185455', 'sender': 'ЧК Adal Commodities Ltd', 'stationDest': 'Вайвара (эксп.), Эст', 'gruzName': 'ЗЕРНО', 'shipKind': '01 - Повагонная', 'typeTraff': 'экспорт', 'receiver': '3182  АО Силстеве, Кеск 2, Силламяэ, 40231, Эстония, на подъездной путь АО Силламяэ Садам.', 'staSend': 'Аксуат', 'createDate': 'Sep 23, 2026, 3:36:53 PM', 'firstVag': '', 'lastVag': '', 'isReturned': '0', 'specialEqipment': False, 'staSendCode': '686007', 'stationDestCode': '083501'}
+[fetch] схема page0based не дала новых строк на странице 2
+[fetch] схема offset не дала новых строк на странице 2
+[fetch] схема skip не дала новых строк на странице 2
+[fetch] схема pageNumber0 не дала новых строк на странице 2
+[fetch] схема pageNumber1 не дала новых строк на странице 2
+[fetch] схема page1based не дала новых строк на странице 2
+[fetch] НЕ УДАЛОСЬ подобрать схему пагинации — сервер всегда отдаёт одну и ту же страницу; будут доступны только первые 20 из 200 накладных
+[fetch] собрано_строк=20 не_распознана_дата=20 подходит_под_период=0 период=2026-09-23..2026-09-23 пример_дат=[None, None, None]
+[fetch] page1 top_keys=['total', 'success', 'rows'] total=200 chunk=20
+[fetch] пример_строки_ключи=['id', 'invoiceNum', 'planNr', 'sender', 'stationDest', 'gruzName', 'shipKind', 'typeTraff', 'receiver', 'staSend', 'createDate', 'firstVag', 'lastVag', 'isReturned', 'specialEqipment', 'staSendCode', 'stationDestCode']
+[fetch] пример_строки_данные={'id': 51543350, 'invoiceNum': '20741654', 'planNr': '185455', 'sender': 'ЧК Adal Commodities Ltd', 'stationDest': 'Вайвара (эксп.), Эст', 'gruzName': 'ЗЕРНО', 'shipKind': '01 - Повагонная', 'typeTraff': 'экспорт', 'receiver': '3182  АО Силстеве, Кеск 2, Силламяэ, 40231, Эстония, на подъездной путь АО Силламяэ Садам.', 'staSend': 'Аксуат', 'createDate': 'Sep 23, 2026, 3:36:53 PM', 'firstVag': '', 'lastVag': '', 'isReturned': '0', 'specialEqipment': False, 'staSendCode': '686007', 'stationDestCode': '083501'}
+[fetch] схема page0based не дала новых строк на странице 2
+[fetch] схема offset не дала новых строк на странице 2
+[fetch] схема skip не дала новых строк на странице 2
+[fetch] схема pageNumber0 не дала новых строк на странице 2
+[fetch] схема pageNumber1 не дала новых строк на странице 2
+[fetch] схема page1based не дала новых строк на странице 2
+[fetch] НЕ УДАЛОСЬ подобрать схему пагинации — сервер всегда отдаёт одну и ту же страницу; будут доступны только первые 20 из 200 накладных
+[fetch] собрано_строк=20 не_распознана_дата=20 подходит_под_период=0 период=2026-08-31..2026-08-31 пример_дат=[None, None, None]
+АСУ ДКР бот запущен. Ожидаю сообщения…
+[fetch] page1 top_keys=['total', 'success', 'rows'] total=200 chunk=20
+[fetch] пример_строки_ключи=['id', 'invoiceNum', 'planNr', 'sender', 'stationDest', 'gruzName', 'shipKind', 'typeTraff', 'receiver', 'staSend', 'createDate', 'firstVag', 'lastVag', 'isReturned', 'specialEqipment', 'staSendCode', 'stationDestCode']
+[fetch] ни один вариант параметров диапазона дат не изменил total — сервер их не поддерживает
+[fetch] ВНИМАНИЕ: доступны только первые 20 из 200 накладных (пагинация не работает)
+[fetch] собрано_строк=20 не_распознана_дата=0 подходит_под_период=0 период=2026-08-31..2026-08-31 пример_дат=['Sep 23, 2026, 3:36:53 PM', 'Sep 23, 2026, 3:35:31 PM', 'Sep 23, 2026, 3:34:04 PM']
+[fetch] page1 top_keys=['total', 'success', 'rows'] total=200 chunk=20
+[fetch] пример_строки_ключи=['id', 'invoiceNum', 'planNr', 'sender', 'stationDest', 'gruzName', 'shipKind', 'typeTraff', 'receiver', 'staSend', 'createDate', 'firstVag', 'lastVag', 'isReturned', 'specialEqipment', 'staSendCode', 'stationDestCode']
+[fetch] ни один вариант параметров диапазона дат не изменил total — сервер их не поддерживает
+[fetch] ВНИМАНИЕ: доступны только первые 20 из 200 накладных (пагинация не работает)
+[fetch] собрано_строк=20 не_распознана_дата=0 подходит_под_период=20 период=2026-09-23..2026-09-23 пример_дат=['Sep 23, 2026, 3:36:53 PM', 'Sep 23, 2026, 3:35:31 PM', 'Sep 23, 2026, 3:34:04 PM']
+АСУ ДКР бот запущен. Ожидаю сообщения…
+[fetch] dateToStart=23.09.2026 dateToStartTo=23.09.2026 total=14 chunk=14
+[fetch] итого_получено=14 (сервер сообщал total=14)
+[fetch] собрано_строк=14 не_распознана_дата=0 подходит_под_период=14 период=2026-09-23..2026-09-23 пример_дат=['Sep 23, 2026, 11:29:52 AM', 'Sep 23, 2026, 11:29:13 AM', 'Sep 23, 2026, 11:28:51 AM']
