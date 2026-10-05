@@ -231,9 +231,12 @@ def _epd_invoice_request(sess, H, page, limit, start, end):
     # dateToStart/dateToStartTo — реальные параметры фильтра "Дата принятия к
     # перевозке" (эндпоинт "epd"/"getInvoice"), формат dd.MM.yyyy — взято из
     # исходного JS-кода сайта (Angular filterForm), т.к. документации к API нет.
+    # Пагинация как у самого сайта: page (с 1) + start (смещение) + limit.
+    # Без start сервер всегда отдаёт первую страницу.
     url = (BASE + "/api/epd/searchdata?method=getInvoice"
-           "&invoice=all&railDivUn=&page=%d&limit=%d&dateToStart=%s&dateToStartTo=%s"
-           % (page, limit, start.strftime("%d.%m.%Y"), end.strftime("%d.%m.%Y")))
+           "&page=%d&start=%d&limit=%d&invoice=all&dateToStart=%s&dateToStartTo=%s&railDivUn="
+           % (page, (page - 1) * limit, limit,
+              start.strftime("%d.%m.%Y"), end.strftime("%d.%m.%Y")))
     r = sess.get(url, headers=H, timeout=40)
     if r.status_code != 200:
         return None
@@ -244,8 +247,10 @@ def fetch_invoices_for_period(sess, identity, start, end):
     H = auth_headers(identity)
     rows, seen_ids = [], set()
     total = None
-    page, limit = 1, 100
-    PAGE_LIMIT = 200  # защита от зацикливания
+    # сервер отдаёт максимум 20 строк за запрос (как и сайт), поэтому просим ровно 20 —
+    # при limit=100 проверка "len(chunk) < limit" обрывала цикл после первой страницы
+    page, limit = 1, 20
+    PAGE_LIMIT = 500  # защита от зацикливания (до 10 000 накладных)
 
     while page <= PAGE_LIMIT:
         data = _epd_invoice_request(sess, H, page, limit, start, end)
@@ -265,8 +270,9 @@ def fetch_invoices_for_period(sess, identity, start, end):
         if new_ids and all(i in seen_ids for i in new_ids):
             log("[fetch] page %d: сервер вернул уже виденные записи, стоп" % page)
             break
+        rows.extend(x for x in chunk if x.get("id") not in seen_ids)
         seen_ids.update(new_ids)
-        rows.extend(chunk)
+        log("[fetch] page %d: +%d, всего %d" % (page, len(chunk), len(rows)))
         if total is not None and len(rows) >= total:
             break
         if len(chunk) < limit:
@@ -274,21 +280,21 @@ def fetch_invoices_for_period(sess, identity, start, end):
         page += 1
     log("[fetch] итого_получено=%d (сервер сообщал total=%s)" % (len(rows), total))
 
-    # на всякий случай ещё раз фильтруем по дате на своей стороне
-    # (сервер уже должен был отфильтровать по dateToStart/dateToStartTo)
+    # Период уже отфильтрован сервером по "Дате принятия к перевозке" (dateToStart).
+    # createDate — дата создания накладной, она может быть раньше периода,
+    # поэтому по ней ничего не отбрасываем, только сортируем и выводим в Excel.
     keep = []
-    unparsed = 0
+    unparsed = outside = 0
     for x in rows:
-        raw = x.get("createDate")
-        d = invoice_date_to_date(raw)
+        d = invoice_date_to_date(x.get("createDate"))
         if d is None:
             unparsed += 1
-            continue
-        if start <= d <= end:
-            keep.append((d, x))
-    keep.sort(key=lambda p: p[0])
-    log("[fetch] собрано_строк=%d не_распознана_дата=%d подходит_под_период=%d период=%s..%s пример_дат=%s"
-        % (len(rows), unparsed, len(keep), start, end,
+        elif not (start <= d <= end):
+            outside += 1
+        keep.append((d, x))
+    keep.sort(key=lambda p: (p[0] is None, p[0] or start))
+    log("[fetch] собрано_строк=%d не_распознана_дата=%d создано_вне_периода=%d период=%s..%s пример_дат=%s"
+        % (len(rows), unparsed, outside, start, end,
            [x.get("createDate") for x in rows[:3]]))
     result = []
     for d, x in keep:
@@ -334,7 +340,7 @@ def build_excel(records, start, end):
     for i, r in enumerate(records, 1):
         w = int(r["weight"]) if str(r["weight"]).isdigit() else 0
         total_w += w
-        ws.append([i, r["date"].strftime("%d.%m.%Y"), r["num"], r["staSend"], r["staDest"],
+        ws.append([i, r["date"].strftime("%d.%m.%Y") if r["date"] else "", r["num"], r["staSend"], r["staDest"],
                    r["sender"], r["receiver"], r["gruz"], r["goods_detail"], w,
                    len(r["wagons"]), ", ".join(r["wagons"])])
     for row in ws.iter_rows(min_row=2, max_row=1 + len(records)):
